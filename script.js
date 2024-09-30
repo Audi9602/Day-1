@@ -1,23 +1,29 @@
 //ES version:7
+
+//Default State of the Sprite
 let playerState = "idle"; 
 const dropDown = document.getElementById('animations');
 dropDown.addEventListener('change', function(e){
     playerState = e.target.value;
 });
+
+//Canvas
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
-
 const CANVAS_WIDTH = canvas.width = 600;
 const CANVAS_HEIGHT = canvas.height = 600;
 
+//Sprite IMG element to be used
 const playerImage = new Image();
 playerImage.src = 'shadow_dog.png';
 const spriteWidth = 575;
 const spriteHeight = 523;
 
-
+//Frames
 let gameFrame = 0;
 const staggerFrame = 5;
+
+//Array(sim to dict)-> key:val for animation & frames
 const spriteAnimations = [];
 const animationStates = [
     {
@@ -62,6 +68,7 @@ const animationStates = [
     }
 ];
 
+//Loop->animate
 animationStates.forEach((state, index) => {
     let frames = {
         loc: [],
@@ -73,8 +80,9 @@ animationStates.forEach((state, index) => {
     }
     spriteAnimations[state.name] = frames;
 });
-console.log(animationStates);
+console.log(animationStates);//Comment it out if not needed!
 
+//Each frame animates now
 function animate(){
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     let position = Math.floor(gameFrame/staggerFrame) % spriteAnimations[playerState].loc.length;
@@ -83,7 +91,6 @@ function animate(){
     //ctx.fillRect(100,50,100,100);
     //ctx.drawImage(img, sx,sy,sw,sh,dx,dy,dw,dh);
     ctx.drawImage(playerImage, frameX, frameY, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
-    
     gameFrame++;
     requestAnimationFrame(animate);
 };

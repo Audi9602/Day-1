@@ -1,5 +1,5 @@
 //ES version:7
-let playerState = "run"; 
+let playerState = "idle"; 
 const dropDown = document.getElementById('animations');
 dropDown.addEventListener('change', function(e){
     playerState = e.target.value;
